@@ -50,6 +50,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Valloric/YouCompleteMe'
 Plug 'gregsexton/gitv'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'justinmk/vim-sneak'
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
