@@ -39,7 +39,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'Shougo/unite.vim'
 "Plug 'Shougo/vimproc.vim'
 Plug 'dbakker/vim-projectroot'
-Plug 'kien/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPBuffer', 'CtrlPMRUFiles']}
+Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeCWD']}
@@ -115,6 +115,18 @@ map <leader>m :CtrlPMRUFiles<CR>
 " ctrlp uses old cache when enabled first time
 " let g:ctrlp_clear_cache_on_exit = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+if executable("ag")
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
 """ End of CtrlP
 
 
