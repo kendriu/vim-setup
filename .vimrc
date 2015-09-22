@@ -2,6 +2,7 @@ filetype plugin indent on
 
 syntax on
 
+set nocompatible
 set autoindent
 set background=dark
 set number
