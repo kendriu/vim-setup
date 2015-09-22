@@ -49,6 +49,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/YouCompleteMe'
 Plug 'gregsexton/gitv'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
