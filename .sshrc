@@ -1,0 +1,20 @@
+#! /bin/bash
+
+if [ ! -d ~/vim-setup ]; then
+	echo "[sshrc] Would you like to install vim-setup? [Y/n]: \c"
+	read line
+	if [ "$line" = Y ] || [ "$line" = y ] || [ -z "$line" ]; then
+		sudo apt-get install -y git
+		git clone https://github.com/kendriu/vim-setup.git ~/vim-setup
+		cd ~/vim-setup
+		./install.sh
+		cd -
+	fi
+elif [[ -f ~/vim-setup/.vimrc ]]; then
+	(cd ~/vim-setup/; ./update.sh> /dev/null 2>1 &)
+fi
+
+if [[ -f ~/vim-setup/.vimrc ]]; then
+	alias vim="vim -u ~/vim-setup/.vimrc"
+fi
+
