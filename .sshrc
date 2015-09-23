@@ -1,7 +1,7 @@
 #! /bin/bash
 
 if [ ! -d ~/vim-setup ]; then
-	echo "[sshrc] Would you like to install vim-setup? [Y/n]: \c"
+	echo "[sshrc] Would you like to install vim-setup? [Y/n]:"
 	read line
 	if [ "$line" = Y ] || [ "$line" = y ] || [ -z "$line" ]; then
 		sudo apt-get install -y git
