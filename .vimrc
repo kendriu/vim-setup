@@ -3,6 +3,7 @@ filetype plugin indent on
 syntax on
 set encoding=utf-8
 
+set modeline
 set nocompatible
 set autoindent
 set background=dark
@@ -227,4 +228,9 @@ function! <SID>ExpandSnippetOrReturn()
   endif
 endfunction
 imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plug>delimitMateCR"
-""" End
+""" End of Snippets
+
+
+""" Commands
+command W w !sudo tee % > /dev/null
+"" End of Commands
