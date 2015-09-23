@@ -38,6 +38,15 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+function! BuildYCM(info) 
+	" info is a dictionary with 3 fields 
+	" - name: name of the plugin 
+	" - status: 'installed', 'updated', or 'unchanged' 
+	" - force: set on PlugInstall! or PlugUpdate! 
+	if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force 
+		!./install.py 
+	endif 
+endfunction
 "Plug 'Shougo/unite.vim'
 "Plug 'Shougo/vimproc.vim'
 Plug 'dbakker/vim-projectroot'
@@ -49,7 +58,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'gregsexton/gitv'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
@@ -181,6 +190,9 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 """ End of Airlane
 
+""" YouCompleteMe
+""" End of YouCompleteMe
+
 
 """ Gundo
 map <F5> :GundoToggle<CR>
@@ -232,5 +244,5 @@ imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plu
 
 
 """ Commands
-command W w !sudo tee % > /dev/null
+command!  W w !sudo tee % > /dev/null
 "" End of Commands
