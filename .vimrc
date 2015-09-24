@@ -22,6 +22,7 @@ set hidden " you can change buffers without saving"
 set scrolloff=10 " Keep 10 lines (top/bottom) for scope
 set smartcase " if there are caps, go case-sensitive
 set ttymouse=xterm2 " makes it work in everything"
+set t_Co=256
 
 autocmd BufNewFile,BufRead *.ipynb set ft=javascript
 autocmd FileType python setlocal completeopt-=preview
