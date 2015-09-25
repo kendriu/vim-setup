@@ -8,4 +8,6 @@ elif hash yum 2>/dev/null; then
 	sudo yum install -y cmake the_silver_searcher vim
 fi
 
+sudo pip install isort
+
 vim -u ./.vimrc +PlugInstall +qall
