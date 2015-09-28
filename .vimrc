@@ -1,4 +1,5 @@
 filetype plugin indent on
+let &runtimepath.=',~/vim-setup'
 
 syntax on
 set encoding=utf-8
@@ -39,15 +40,16 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
-function! BuildYCM(info) 
-	" info is a dictionary with 3 fields 
-	" - name: name of the plugin 
-	" - status: 'installed', 'updated', or 'unchanged' 
-	" - force: set on PlugInstall! or PlugUpdate! 
-	if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force 
-		!./install.py 
-	endif 
+function! BuildYCM(info)
+	" info is a dictionary with 3 fields
+	" - name: name of the plugin
+	" - status: 'installed', 'updated', or 'unchanged'
+	" - force: set on PlugInstall! or PlugUpdate!
+	if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+		!./install.py
+	endif
 endfunction
+
 "Plug 'Shougo/unite.vim'
 "Plug 'Shougo/vimproc.vim'
 Plug 'dbakker/vim-projectroot'
@@ -63,6 +65,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'gregsexton/gitv'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
+Plug 'bronson/vim-trailing-whitespace'
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
@@ -162,7 +165,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_w = 0
 let g:syntastic_check_on_wq = 0
-nmap <C-c> :SyntasticCheck<CR> 
+nmap <C-c> :SyntasticCheck<CR>
 """ End of Syntatsic
 
 
@@ -245,5 +248,12 @@ imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plu
 
 
 """ Commands
-command!  W w !sudo tee % > /dev/null
-"" End of Commands
+command! W w !sudo tee % > /dev/null
+
+function! s:Edit(path)
+	exec "vsplit ".a:path
+endfunction
+
+"TODO: http://stackoverflow.com/questions/32767547/tab-completion-for-my-vim-command-dont-work
+command! -nargs=1  -complete=file E call s:Edit(<q-args>)
+:nnoremap <silent> <F7> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
