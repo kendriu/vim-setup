@@ -221,6 +221,8 @@ nmap <Leader>v :e $MYVIMRC<CR>
 
 noremap <F3> :Autoformat<CR>
 map <Leader>q :ProjectRootCD<CR>
+
+map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
 """ End of otherhortcuts
 
 
