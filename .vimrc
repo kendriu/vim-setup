@@ -9,6 +9,7 @@ set nocompatible
 set autoindent
 set background=dark
 set number
+set splitright
 
 set tabstop=2
 set shiftwidth=2
@@ -57,7 +58,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeCWD']}
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
@@ -66,6 +66,7 @@ Plug 'gregsexton/gitv'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'tpope/vim-surround'
 
 " Track the engine.
 Plug 'SirVer/ultisnips'
@@ -155,6 +156,7 @@ endif
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 """ End of Unite
 
+
 """ Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -167,6 +169,20 @@ let g:syntastic_check_on_w = 0
 let g:syntastic_check_on_wq = 0
 nmap <C-c> :SyntasticCheck<CR>
 """ End of Syntatsic
+
+
+""" Ag
+" Ag looks in project directory not in cwd
+let g:ag_working_path_mode="r"
+ let g:ag_highlight=1
+
+"""  End of Ag
+
+
+""" Tagbar
+let g:tagbar_width = 40
+let g:tagbar_autofocus = 1
+""" End of Tagbar
 
 
 """ Airline
@@ -194,8 +210,23 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 """ End of Airlane
 
-""" YouCompleteMe
-""" End of YouCompleteMe
+""" Sneak
+
+"replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+""" End of Sneak
 
 
 """ Gundo
@@ -224,13 +255,6 @@ map <Leader>q :ProjectRootCD<CR>
 
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
 """ End of otherhortcuts
-
-
-" Ag looks in project directory not in cwd
-let g:ag_working_path_mode="r"
-let g:tagbar_width = 40
-let g:tagbar_autofocus = 1
-
 
 """ Snippets expands on return
 let g:UltiSnipsJumpForwardTrigger="<tab>"
