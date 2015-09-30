@@ -3,11 +3,11 @@ setlocal expandtab
 setlocal shiftwidth=4
 setlocal softtabstop=4
 
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
-set colorcolumn=80
-highlight ColorColumn ctermbg=DarkGray
+setlocal colorcolumn=80
 
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_w = 1
-let g:syntastic_check_on_wq = 1
+let b:syntastic_check_on_open = 0
+let b:syntastic_check_on_w = 1
+let b:syntastic_check_on_wq = 1
+

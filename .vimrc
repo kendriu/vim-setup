@@ -26,6 +26,8 @@ set smartcase " if there are caps, go case-sensitive
 set ttymouse=xterm2 " makes it work in everything"
 set t_Co=256
 
+highlight ColorColumn ctermbg=DarkGray
+
 autocmd BufNewFile,BufRead *.ipynb set ft=javascript
 autocmd FileType python setlocal completeopt-=preview
 
