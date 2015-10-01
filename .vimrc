@@ -10,6 +10,7 @@ set autoindent
 set background=dark
 set number
 set splitright
+set nowrap
 
 set tabstop=2
 set shiftwidth=2
@@ -25,6 +26,7 @@ set scrolloff=10 " Keep 10 lines (top/bottom) for scope
 set smartcase " if there are caps, go case-sensitive
 set ttymouse=xterm2 " makes it work in everything"
 set t_Co=256
+au FileType markdown setl shell=bash\ -i
 
 highlight ColorColumn ctermbg=DarkGray
 
