@@ -66,6 +66,7 @@ Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'ervandew/supertab'
 Plug 'gregsexton/gitv'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
@@ -88,7 +89,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 
 " Autocompletion in Python
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " Sort imports in Python
 Plug 'fisadev/vim-isort', { 'for': 'python' }
@@ -175,6 +176,14 @@ nmap <C-c> :SyntasticCheck<CR>
 """ End of Syntatsic
 
 
+"""You Complete Me
+let g:ycm_key_list_select_completion = ['<C-TAB>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<Up>']
+
+let g:SuperTabDefaultCompletionType = '<C-Tab>'
+""" End of YCM
+
+
 """ Ag
 " Ag looks in project directory not in cwd
 let g:ag_working_path_mode="r"
@@ -259,22 +268,6 @@ map <Leader>q :ProjectRootCD<CR>
 
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
 """ End of otherhortcuts
-
-""" Snippets expands on return
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-let g:UltiSnipsExpandTrigger="<nop>"
-let g:ulti_expand_or_jump_res = 0
-function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return "\<C-Y>"
-  endif
-endfunction
-imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plug>delimitMateCR"
-""" End of Snippets
 
 
 """ Commands
