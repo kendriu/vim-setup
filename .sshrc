@@ -1,5 +1,6 @@
 #! /bin/bash
 
+echo "Executing .sshrc..."
 if [ ! -d ~/vim-setup ]; then
 	echo "[sshrc] Would you like to install vim-setup? [Y/n]:"
 	read line
@@ -18,3 +19,15 @@ if [[ -f ~/vim-setup/.vimrc ]]; then
 	alias vim="vim -u ~/vim-setup/.vimrc"
 fi
 
+if  hash tmux 2>/dev/null; then
+	if [[ -f ~/kendriu/.tmux.conf ]]; then
+		alias tmux="tmux -f ~/kendriu/.tmux.conf"
+	fi
+
+	sessions=`tmux list-sessions 2>/dev/null`
+	if [[ -n $sessions ]]; then
+		echo "Open tmux sessions:"
+		echo $sessions
+	fi
+	echo
+fi

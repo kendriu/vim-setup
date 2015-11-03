@@ -73,6 +73,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
 
+" Autocompletion in Python
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
 " Track the engine.
 Plug 'SirVer/ultisnips'
 
@@ -107,7 +110,10 @@ Plug 'andreimaxim/vim-io', { 'for': 'io' }
 Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/scratch.vim'
+Plug 'elixir-lang/vim-elixir'
 Plug 'bling/vim-airline'
+
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 
