@@ -3,6 +3,9 @@ let &runtimepath.=',~/vim-setup'
 
 syntax on
 set encoding=utf-8
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
 
 set modeline
 set nocompatible
@@ -273,6 +276,9 @@ noremap <F3> :Autoformat<CR>
 map <Leader>q :ProjectRootCD<CR>
 
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
+
+" Enable folding with the spacebar
+nnoremap <space> za
 """ End of otherhortcuts
 
 
