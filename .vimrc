@@ -115,7 +115,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/scratch.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'bling/vim-airline'
-Plug 'tmhedberg/SimpylFold', { 'for': 'python'}
 
 Plug 'wakatime/vim-wakatime'
 call plug#end()
