@@ -272,7 +272,7 @@ nmap <Leader>s :source $MYVIMRC<CR>
 " " opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
 nmap <Leader>v :e $MYVIMRC<CR>
 
-noremap <F3> :Autoformat<CR>
+noremap <F3> :Autoformat<CR> :w<CR>
 map <Leader>q :ProjectRootCD<CR>
 
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
