@@ -109,6 +109,9 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " IO language syntax
 Plug 'andreimaxim/vim-io', { 'for': 'io' }
 
+" Jinja2
+Plug 'mitsuhiko/vim-jinja'
+
 " Syntax checking
 Plug 'scrooloose/syntastic'
 Plug 'airblade/vim-gitgutter'
@@ -278,7 +281,7 @@ map <Leader>q :ProjectRootCD<CR>
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
 
 " Enable folding with the spacebar
-nnoremap <space> za
+"nnoremap <space> za
 """ End of otherhortcuts
 
 
