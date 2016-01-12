@@ -2,7 +2,7 @@ filetype plugin indent on
 let &runtimepath.=',~/vim-setup'
 
 syntax on
-set encoding=utf-8
+set encoding=utf8
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
@@ -11,7 +11,7 @@ set modeline
 set nocompatible
 set autoindent
 set background=dark
-set number
+set relativenumber number
 set splitright
 set nowrap
 
@@ -27,8 +27,15 @@ set pastetoggle=<F10>
 set hidden " you can change buffers without saving"
 set scrolloff=10 " Keep 10 lines (top/bottom) for scope
 set smartcase " if there are caps, go case-sensitive
-set ttymouse=xterm2 " makes it work in everything"
 set t_Co=256
+
+set undofile
+set undodir="$HOME/.VIM_UNDO_FILES"
+
+if !has('nvim')
+	set ttymouse=xterm2 " makes it work in everything"
+endif
+
 au FileType markdown setl shell=bash\ -i
 
 highlight ColorColumn ctermbg=DarkGray
@@ -36,16 +43,16 @@ highlight ColorColumn ctermbg=DarkGray
 autocmd BufNewFile,BufRead *.ipynb set ft=javascript
 autocmd FileType python setlocal completeopt-=preview
 
+
+" repair arrows
+if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
+	inoremap <silent> <C-[>OC <RIGHT>
+endif
+
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
 	execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
-
-" repair arrows
-if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
-		inoremap <silent> <C-[>OC <RIGHT>
-endif
-
 
 call plug#begin('~/.vim/plugged')
 function! BuildYCM(info)
@@ -61,7 +68,7 @@ endfunction
 "Plug 'Shougo/unite.vim'
 "Plug 'Shougo/vimproc.vim'
 Plug 'dbakker/vim-projectroot'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeCWD']}
@@ -75,6 +82,10 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'justinmk/vim-sneak'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
+Plug 'dietsche/vim-lastplace'
+
+"Neovim
+Plug 'wincent/terminus'
 
 " Autocompletion in Python
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -93,9 +104,6 @@ Plug 'tpope/vim-fugitive'
 
 " Repeats also plugin operations
 Plug 'tpope/vim-repeat'
-
-" Autocompletion in Python
-"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " Sort imports in Python
 Plug 'fisadev/vim-isort', { 'for': 'python' }
@@ -125,6 +133,7 @@ call plug#end()
 
 colorscheme solarized
 let g:solarized_termcolors=256
+let g:lastplace_ignore = "gitcommit,svn"
 
 
 """  NerdTree settings
@@ -151,27 +160,18 @@ map <leader>m :CtrlPMRUFiles<CR>
 " let g:ctrlp_clear_cache_on_exit = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 if executable("ag")
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+	let g:ackprg = 'ag --nogroup --nocolor --column'
 
-    " Use Ag over Grep
-    set grepprg=ag\ --nogroup\ --nocolor
+	" Use Ag over Grep
+	set grepprg=ag\ --nogroup\ --nocolor
 
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
+	" ag is fast enough that CtrlP doesn't need to cache
+	let g:ctrlp_use_caching = 0
 endif
 """ End of CtrlP
-
-
-""" Unite
-"nnoremap <leader>F :Unite file_rec/async<CR>
-"let g:unite_source_history_yank_enable = 1
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"nnoremap <leader>q :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-"nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-""" End of Unite
 
 
 """ Syntastic
@@ -199,7 +199,7 @@ let g:SuperTabDefaultCompletionType = '<C-Tab>'
 """ Ag
 " Ag looks in project directory not in cwd
 let g:ag_working_path_mode="r"
- let g:ag_highlight=1
+let g:ag_highlight=1
 
 """  End of Ag
 
@@ -216,9 +216,9 @@ let g:airline_powerline_fonts = 1
 "let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#tabline#enabled = 1
 
- if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
 
 " unicode symbols
 let g:airline_left_sep = '»'
@@ -275,7 +275,7 @@ nmap <Leader>s :source $MYVIMRC<CR>
 " " opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
 nmap <Leader>v :e $MYVIMRC<CR>
 
-noremap <F3> :Autoformat<CR> :w<CR>
+noremap <F3> :Autoformat<CR> :Isort<CR> :w<CR>
 map <Leader>q :ProjectRootCD<CR>
 
 map <Leader>t :execute ":Ag \"TODO\|FIXME\|XXX\""<CR>
@@ -295,3 +295,6 @@ endfunction
 "TODO: http://stackoverflow.com/questions/32767547/tab-completion-for-my-vim-command-dont-work
 command! -nargs=1  -complete=file E call s:Edit(<q-args>)
 :nnoremap <silent> <F7> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
